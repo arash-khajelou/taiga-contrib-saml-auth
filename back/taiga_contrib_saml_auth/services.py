@@ -1,7 +1,7 @@
 from django.conf import settings
 from django.db import transaction as tx
 from django.db import IntegrityError
-from django.utils.translation import ugettext as _
+from django.utils.translation import gettext as _
 
 from django.apps import apps
 
@@ -10,7 +10,6 @@ from taiga.base import exceptions as exc
 from taiga.auth.services import send_register_email
 from taiga.auth.services import make_auth_response_data, get_membership_by_token
 from taiga.auth.signals import user_registered as user_registered_signal
-
 
 @tx.atomic
 def saml_register(saml_id, user_attributes, token=None):
@@ -46,7 +45,6 @@ def saml_register(saml_id, user_attributes, token=None):
 
     return user
 
-
 def saml_mapping(request):
     id_mapping = settings.SAML_AUTH['mapping'].get('id')
     attribute_mappings = settings.SAML_AUTH['mapping']['attributes']
@@ -62,7 +60,6 @@ def saml_mapping(request):
         user_attributes[user_attr] = saml_attributes[saml_attr][0]
 
     return saml_id, user_attributes
-
 
 def saml_login_func(request):
     token = request.DATA.get('token', None)
